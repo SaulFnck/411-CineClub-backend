@@ -23,4 +23,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Obtener todas las reseñas de un usuario específico
+router.get('/usuario/:usuarioId', async (req, res) => {
+    try {
+        // Usamos comillas para buscar dentro del objeto anidado 'usuario'
+        const reviews = await Review.find({ 'usuario.usuarioId': req.params.usuarioId });
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;
